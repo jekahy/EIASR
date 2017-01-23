@@ -61,7 +61,6 @@ A pre-processing step in edge detection: a smoothing operation in order to remov
 \end{itemize}
 
 
-
 \subsection{Sobel Edge Detection}
 
 The Sobel operator is used in image processing, particularly within edge detection algorithms. It falls into a group of convolution-based edge detectors. Technically, it is a discrete differentiation operator, computing an approximation of the gradient of the image intensity function. At each point in the image, the result of the Sobel operator is either the corresponding gradient vector or the norm of this vector. The Sobel operator is based on convolving the image with a small, separable, and integer valued filter in horizontal and vertical direction and is therefore relatively inexpensive in terms of computations. On the other hand, the gradient approximation that it produces is relatively crude, in particular for high frequency variations in the image.
@@ -80,28 +79,6 @@ The Sobel operator is used in image processing, particularly within edge detecti
 \]
 
 \textbf{Characteristics:} different input-output image, e.g. maximum strength: 2040 for 8-bit input image, simple implementation, good results.
-
-
-\subsection{Scharr Edge detection}
-
-Scharr operator is similar to the Sobel operator having the following kernel:
-
-\[	
-  	G_x = \begin{bmatrix}
-  	-3 & 0 & 3 \\
-  	-10 & 0 & 10 \\
-  	-3 & 0 & 3
-	\end{bmatrix}, \quad
-	G_y = \begin{bmatrix}
-  	-3 & -10 & -3 \\
-  	0 & 0 & 0 \\
-  	3 & 10 & 3
-	\end{bmatrix}
-\]
-
-Comparing with Sobel operators we see that they look similar, but Sobel weight matrix is isotropic and Scharr weight matrix is anisotropic.
-					
-Scharr operators result from an optimization minimizing weighted mean squared angular error in Fourier domain. This optimization is done under the condition that resulting filters are numerically consistent. Therefore they really are derivative kernels rather than merely keeping symmetry constraints.
 
 
 \subsection{Edge thinning}
