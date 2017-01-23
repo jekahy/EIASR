@@ -10,6 +10,8 @@ from canny import gradient, thin_nonmaximum, thin_hysteresis
 from hough import hough_learn, hough_detect
 import math
 
+import cv2
+
 class Image():
 
 	def __init__(self, img_path):
@@ -89,7 +91,7 @@ class HoughShapeDetector():
 
 			scale, angle, cx, cy = cand
 			angle *= 180/np.pi
-			angle -= 180
+                        angle = (angle + 180) % 360
 			tmpPoints = np.asarray(self.shapePts, dtype=np.float64)
 			tmpPoints *= scale
 			tmpPoints = tmpPoints.astype(np.int64)
@@ -148,7 +150,7 @@ class Canny(QWidget):
 		self.setupImgViews()
 		self.setupButtons()
 		self.setupTable()
-		# self.setupModeBox()
+		self.setupModeBox()
 		self.setupProgressView()
 		self.show()
 

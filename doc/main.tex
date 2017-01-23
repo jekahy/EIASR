@@ -224,7 +224,10 @@ Although some bogus points may be calculated, given that the object exists in th
 \section{Project implementation}
 
 
-For implementation we chose the Python programming language. NumPy library was use for efficient matrix operations.
+For implementation we chose the Python programming language and used the NumPy library
+for efficient matrix operations.  We also used scikit and scikit-image for required
+matrix operations not found in NumPy.  Slow hotspots in implemented algorithms
+were vectorized using the aftermentioned libraries.
 
 The implementation can be roughly divided into three parts: GHT model creation, GHT shape detection and edge extraction algorithm.
 
@@ -233,9 +236,6 @@ Edge extraction algorithm includes the following steps:
 \begin{enumerate}
     \item Find the intensity gradients of the image using a convolution-based Sobel operator At each point in the image we will obtain the corresponding gradient vector(intensity gradients).
 
-    \item Apply non-maximum suppression as upon applying gradient calculation, the extracted edge is still quite blurred. Non-maximum suppression will help to suppress all the gradient values to 0 except the local maxima, which indicate locations with the sharpest change of intensity value.(filtered gradients)
-	\item Perform edge chain detection by the hysteresis method. This step will filter the small edges(edge pixels) 
-\end{enumerate}
 
 First extracted edges will be used in generalized Hough transform(GHT) to create a contour model of a bottle.
 
@@ -262,5 +262,13 @@ In order to detect the contour in a test image, edge extraction will have be per
 \end{figure}
 
 \section{Conclusions}
+
+In our tests we succesfully craeted a model of a bottle shape based on a cropped image and detected
+said bottle in several test images.
+
+We found out that the number of possible discrete values of rotation and scaling greatly affects
+the quality of results but also performance.  We had to tune the number of scalings to just 6 to
+achieve acceptable runtime, which caused some instances to not be detected.
+
 
 \end{document}
