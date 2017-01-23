@@ -23,7 +23,7 @@
 
 \title{Detection and localization of a 2-D contour with GHT}
 \author{E. Hyrol and P. Stiasny}
-\date{22.01.2017}
+\date{23.01.2017}
 \maketitle
 
 %\begin{abstract}
@@ -234,8 +234,11 @@ The implementation can be roughly divided into three parts: GHT model creation, 
 Edge extraction algorithm includes the following steps:
 
 \begin{enumerate}
-    \item Find the intensity gradients of the image using a convolution-based Sobel operator At each point in the image we will obtain the corresponding gradient vector(intensity gradients).
+    \item Find the intensity gradients of the image using a convolution-based Sobel operator At each point in the image we will obtain the corresponding gradient vector.
+   \item Apply non-maximum suppression as upon applying gradient calculation, the extracted edge is still quite blurred. Non-maximum suppression will help to suppress all the gradient values to 0 except the local maxima, which indicate locations with the sharpest change of intensity value.
+	\item Perform edge chain detection by the hysteresis method. This step will filter the small edges.
 
+\end{enumerate}
 
 First extracted edges will be used in generalized Hough transform(GHT) to create a contour model of a bottle.
 
@@ -261,11 +264,28 @@ In order to detect the contour in a test image, edge extraction will have be per
 \label{fig:attacks}
 \end{figure}
 
-\includegraphics[width = 0.6\textwidth]{ui}
 
+\begin{figure}[!ht]
+\centering
+\begin{tabular}{cccc}
+\subfloat[Accumulator]{\includegraphics[width = 0.3\textwidth]{results/bottle-accumulator}} &
+\subfloat[Detected contour]{\includegraphics[width = 0.3\textwidth]{results/bottle-overlay}} &
+\subfloat[Detected contour in second image]{\includegraphics[width = 0.3\textwidth]{results/bottle-overlay2}} \\
+
+\end{tabular}
+\caption{Results of the Canny edge detection phase}
+\label{fig:attacks}
+\end{figure}
+
+
+\begin{figure}[!ht]
+\centering
+\includegraphics[width = \textwidth]{ui}
+\caption{User interface}
+\end{figure}
 \section{Conclusions}
 
-In our tests we succesfully craeted a model of a bottle shape based on a cropped image and detected
+In our tests we succesfully created a model of a bottle shape based on a cropped image and detected
 said bottle in several test images.
 
 We found out that the number of possible discrete values of rotation and scaling greatly affects

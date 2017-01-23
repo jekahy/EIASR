@@ -48,6 +48,8 @@ class Image():
 		if hasattr(self, "ght_res"):
 			images.append(self.ght_res)
 		if hasattr(self, "ght_overlayed"):
+			imsave('accumulator.png',self.ght_res)
+			imsave('result.png',self.ght_overlayed)
 			images.append(self.ght_overlayed)
 		return [imgToQImg(im) for im in images]
 
@@ -150,7 +152,7 @@ class Canny(QWidget):
 		self.setupImgViews()
 		self.setupButtons()
 		self.setupTable()
-		self.setupModeBox()
+		# self.setupModeBox()
 		self.setupProgressView()
 		self.show()
 
@@ -232,6 +234,8 @@ class Canny(QWidget):
 
 	def refreshImgViews(self):
 		images = self.activeImg.visualImages()
+
+		
 		self.ig.populate(images)
 		self.ig.show()
 
@@ -278,7 +282,7 @@ class Canny(QWidget):
 		
 		fileDialog = QFileDialog(self)
 		fileDialog.setFileMode(QFileDialog.ExistingFiles)
-		fileDialog.setNameFilters(['Images (*.jpg *.png)'])
+		fileDialog.setNameFilters(['Images (*.jpg *.png *.jpeg)'])
 		fileDialog.show()
 
 		if fileDialog.exec_():
